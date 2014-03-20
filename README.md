@@ -338,8 +338,7 @@ Add these service properties to modify processing behavior (i.e. "def async = fa
 > Total rows provided: [total]
 > 
 > If you experience issues related to your import process, please
-> contact your account administrator or call our support line at
-> 877.819.0015.
+> contact support.
 > 
 > Thank you very much!
 
@@ -366,8 +365,7 @@ Add these service properties to modify processing behavior (i.e. "def async = fa
 > Attempted updates : [updateCount]
 > 
 > If you experience issues related to your import process, please
-> contact your account administrator or call our support line at
-> 877.819.0015.
+> contact support..
 > 
 > Thank you very much!
 
