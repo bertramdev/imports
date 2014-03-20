@@ -5,7 +5,7 @@ This plugin provides support for importing bulk data, typically via CSV file upl
 
 **Included features:**
 
- - Declarative import support for domain classes or other structures
+ - Declarative "imports" support for domain classes or other structures
  - Controller for processing file uploads
  - Optional pre-processing validation
  - Error row tracking
@@ -332,7 +332,7 @@ Add these service properties to modify processing behavior (i.e. "def async = fa
  - doConfirmationEmail [true]
  - doSummaryEmail [true]
  - doArchiveFile [false]
- - fromEmailAddress ['imports@spireon.com']
+ - fromEmailAddress ['imports@myapp.com']
  - doIncludeErrorsInSummary [true] 
  - confirmationEmailContentTemplate [ProconImportService.DEFAULT_CONFIRMATION_EMAIL_CONTENT]
  - summaryEmailContentTemplate [ProconImportService.DEFAULT_SUMMARY_EMAIL_CONTENT] 
