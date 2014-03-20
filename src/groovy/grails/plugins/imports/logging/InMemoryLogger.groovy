@@ -110,8 +110,8 @@ class InMemoryLogger implements ImportLogger{
             errorRows = doc?.errorRows,
             rtn = [errorRows:[]]
         if (headers) {
-            headers << DefaultImporter.IMPORT_INDEX
-            headers << DefaultImporter.IMPORT_ERROR
+            if (!headers.contains(DefaultImporter.IMPORT_INDEX)) headers << DefaultImporter.IMPORT_INDEX
+            if (!headers.contains(DefaultImporter.IMPORT_ERROR)) headers << DefaultImporter.IMPORT_ERROR
             rtn.errorRows << headers
             if (errorRows) {
                 errorRows.each {row ->
