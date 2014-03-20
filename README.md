@@ -413,10 +413,13 @@ def confirmationEmailAddress(params, importLogId)
 def sendConfirmationEmail(params, importLogId)
 ```    
 
+Import logging
+--------------------------
+
 The logger implementation is configurable and pluggable:
 
 ```
-grails.plugins.imports.loggingProvider='mem' \\'mongo','default', 'file'
+grails.plugins.imports.loggingProvider='mem' \\'mongo','default', 'file', [custom class name]
 ```
 
 The logger can me autowired into Grails artifacts:
@@ -446,3 +449,4 @@ def getImportLogErrorInfo(importLogId)
 def findImportLogs(params)
 ```
 
+Custom logger classes should implement the `com.grails.plugins.imports.logging.ImportLogger` interface that defines the methods above.
