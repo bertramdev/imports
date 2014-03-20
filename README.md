@@ -5,7 +5,7 @@ This plugin provides support for importing bulk data, typically via CSV file upl
 
 **Included features:**
 
- - Declarative import support for domain classes or other structures
+ - Declarative "imports" support for domain classes or other structures
  - Controller for processing file uploads
  - Optional pre-processing validation
  - Error row tracking
