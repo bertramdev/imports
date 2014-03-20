@@ -21,13 +21,27 @@ This plugin provides support for importing bulk data, typically via CSV file upl
  
 Data import functionality is exposed using Grails services.
 
-Import file upload POST URL is /proconImport/process with 3 parameters: entityName [string], import [file], format of response [html | json | xml]
+Import file upload POST URL is:
+
+```
+/imports/process
+```
+
+This endpoint accepts 3 parameters: 
+
+- entityName [string]
+- import [file] (parameter)
+- format of response [html | json | xml]
 
 GET to same URL will return configurable "info" response.
 
 Refer to grails.plugins.imports.ImportsService to see how things work.
 
-Plugin project has sample imports in test/imports and entry point is http://localhost:8080/importsTest.
+Plugin project has sample imports in test/imports and entry point is:
+
+```
+http://localhost:8080/importsTest.
+```
 
 Basic Example
 -------------
@@ -48,7 +62,7 @@ Domain class:
     	Date lastUpdated
         static constraints = {
         	stringValueNullable(nullable:true)
-    		integerValueMarshalled(nullable:true)
+    		  integerValueMarshalled(nullable:true)
         	emailValue(email:true)
         	listValue(inList:['listValue1','listValue2', 'listValue3'])
         }
