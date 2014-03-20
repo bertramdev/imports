@@ -1,0 +1,5 @@
+emailValue,longValue,doubleValue,stringValue,listValue,integerValueMarshalled,integerValue,aliasValue
+test@test.com,11,11.11,poop,listValue1,0,1,aliasValue
+test@test.com,22,22.22,poop2,listValue2,0,2,aliasValue
+test@test.com,33,33.33,poop3,listValue3,0,,aliasValue
+test@test.com,22,22.22,poop2,listValue2,0,2
