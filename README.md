@@ -203,105 +203,105 @@ Association Example
 ----------------------
 
 Domain classes:
+```
+class MyDomainClass {
+    	String stringValue
+    	MyAssociatedDomainClass domainClassValue
+    	Date dateCreated
+    	Date lastUpdated
+}
 
-    class MyDomainClass {
-        	String stringValue
-        	MyAssociatedDomainClass domainClassValue
-        	Date dateCreated
-        	Date lastUpdated
-    }
-
-    class MyAssociatedDomainClass {
-        	String name
-        	Date dateCreated
-        	Date lastUpdated
-    }
-
+class MyAssociatedDomainClass {
+    	String name
+    	Date dateCreated
+    	Date lastUpdated
+}
+```
 Import service:
-
-    class MyDomainClassImportService {
-        static proconImport = MyDomainClass
-        static transactional = false //turn off transactions for better throughput
-    }
-
+```
+class MyDomainClassImportService {
+    static proconImport = MyDomainClass
+    static transactional = false //turn off transactions for better throughput
+}
+```
 Import CSV file:
-
-    stringValue,domainClassValue.id
-    value1,1
-    value2,1
-    value3,2
-    
+```
+stringValue,domainClassValue.id
+value1,1
+value2,1
+value3,2
+```    
 Custom Column Marshalling Example
 ----------------------
 
 Domain class:
-
-    class MyDomainClass {
-        	String stringValue
-        	Integer customMarshallField
-        	Date dateCreated
-        	Date lastUpdated
-    }
-
+```
+class MyDomainClass {
+    	String stringValue
+    	Integer customMarshallField
+    	Date dateCreated
+    	Date lastUpdated
+}
+```
 Import service:
+```
+class MyDomainClassImportService {
+    static proconImport = MyDomainClass
+    static transactional = false //turn off transactions for better throughput
+	
+	def marshall(columnName,  propertyName, value, importLogId) {
+  	def rtn = value
+    if (propertyName == 'customMarshallField') {
+	    rtn = new Integer((rtn ?: '0').toString()) + 10
+	    log.info('marshall:'+columnName+','+value+'->'+rtn)
+  	}
+    return rtn
+  }
 
-    class MyDomainClassImportService {
-        static proconImport = MyDomainClass
-        static transactional = false //turn off transactions for better throughput
-    	
-    	def marshall(columnName,  propertyName, value, importLogId) {
-	    	def rtn = value
-		    if (propertyName == 'customMarshallField') {
-			    rtn = new Integer((rtn ?: '0').toString()) + 10
-			    log.info('marshall:'+columnName+','+value+'->'+rtn)
-	    	}
-		    return rtn
-	    }
-
-    }
-
+}
+```
 Import CSV file:
-
-    stringValue,customMarshallField
-    value1,1
-    value2,1
-    value3,2
-
+```
+stringValue,customMarshallField
+value1,1
+value2,1
+value3,2
+```
 Custom Column Default Example
 ----------------------
 
 Domain class:
-
-    class MyDomainClass {
-        	String stringValue
-        	String customDefaultField
-        	Date dateCreated
-        	Date lastUpdated
-    }
-
+```
+class MyDomainClass {
+    	String stringValue
+    	String customDefaultField
+    	Date dateCreated
+    	Date lastUpdated
+}
+```
 Import service:
-
-    class MyDomainClassImportService {
-        static proconImport = MyDomainClass
-        static transactional = false //turn off transactions for better throughput
-    	
-	    def defaultValue (columnName, propertyName, importLogId) {
-		    def rtn = null
-		    if (propertyName == 'customDefaultField') {
-			    rtn = new Date().format('HH:mm:ss')
-			    log.info('defaultValue:'+columnName+'->'+rtn)
-		    }
-	    	return rtn
-    	}
+```
+class MyDomainClassImportService {
+    static proconImport = MyDomainClass
+    static transactional = false //turn off transactions for better throughput
+	
+  def defaultValue (columnName, propertyName, importLogId) {
+    def rtn = null
+    if (propertyName == 'customDefaultField') {
+	    rtn = new Date().format('HH:mm:ss')
+	    log.info('defaultValue:'+columnName+'->'+rtn)
     }
-
+  	return rtn
+	}
+}
+```
 Import CSV file:
-
-    stringValue,customDefaultField
-    value1,
-    value2,
-    value3,
-
+```
+stringValue,customDefaultField
+value1,
+value2,
+value3,
+```
 Import service properties [default value]
 --------------------------
 
@@ -375,44 +375,44 @@ Add these service properties to modify processing behavior (i.e. "def async = fa
 Import service processing methods that can be overridden
 --------------------------
 ```
-    // File processing methods
-    def validateFile(uploadedFile, params, importLogId)
-    def getRowCount(uploadedFile, params, importLogId)
-    def processCsv(uploadedFile, params, importLogId)
-    def processXXX(uploadedFile, params, importLogId) //support XXX mime type
-    def columns(params, importLogId)
-    def column(params, name, importLogId)
-    def archiveFile(uploadedFile, params, importLogId)
-    def retrieveArchivedFile(params, importLogId)
-    def processRow(row, index, columns, params, importLogId) // override entire process
-    def beforeBindRow(row, index, columns, params, importLogId)
-    def fetchObject(row, index, columns, params, importLogId) // called during bind row
-    def bindRow(row, index, columns, params, importLogId)
-    def defaultValue(columnName, propertyName, importLogId)
-    def marshall(columnName,  propertyName, value, importLogId)
-    def validateHeaders(headers, params, importLogId)
-    def afterBindRow(obj, row, index, columns, params, importLogId)
-    def validateRow(obj, row, index, columns, params, importLogId)
-    def saveRow(obj, row, index, columns, params, importLogId)
-    def formatErrors(obj, importLogId)
-    def afterSaveRow(success, obj, row, index, columns, params, importLogId)
-    def processComplete(params, importLogId)
-    
-    //Email methods
-    def summaryEmailContentTemplate(params, importLogId)
-    def summaryEmailSubjectTemplate(params, importLogId)
-    def summaryEmailBindVariables(binding, params, importLogId)
-    def summaryEmailContent(params, importLogId)
-    def summaryEmailSubject(params, importLogId)
-    def summaryEmailAddress(params, importLogId)
-    def sendSummaryEmail(params, importLogId) // override entire summary email
-    def confirmationEmailContentTemplate(params, importLogId)
-    def confirmationEmailSubjectTemplate(params, importLogId)
-    def confirmationEmailBindVariables(binding, params, importLogId)
-    def confirmationEmailContent(params, importLogId)
-    def confirmationEmailSubject(params, importLogId)
-    def confirmationEmailAddress(params, importLogId)
-    def sendConfirmationEmail(params, importLogId)
+// File processing methods
+def validateFile(uploadedFile, params, importLogId)
+def getRowCount(uploadedFile, params, importLogId)
+def processCsv(uploadedFile, params, importLogId)
+def processXXX(uploadedFile, params, importLogId) //support XXX mime type
+def columns(params, importLogId)
+def column(params, name, importLogId)
+def archiveFile(uploadedFile, params, importLogId)
+def retrieveArchivedFile(params, importLogId)
+def processRow(row, index, columns, params, importLogId) // override entire process
+def beforeBindRow(row, index, columns, params, importLogId)
+def fetchObject(row, index, columns, params, importLogId) // called during bind row
+def bindRow(row, index, columns, params, importLogId)
+def defaultValue(columnName, propertyName, importLogId)
+def marshall(columnName,  propertyName, value, importLogId)
+def validateHeaders(headers, params, importLogId)
+def afterBindRow(obj, row, index, columns, params, importLogId)
+def validateRow(obj, row, index, columns, params, importLogId)
+def saveRow(obj, row, index, columns, params, importLogId)
+def formatErrors(obj, importLogId)
+def afterSaveRow(success, obj, row, index, columns, params, importLogId)
+def processComplete(params, importLogId)
+
+//Email methods
+def summaryEmailContentTemplate(params, importLogId)
+def summaryEmailSubjectTemplate(params, importLogId)
+def summaryEmailBindVariables(binding, params, importLogId)
+def summaryEmailContent(params, importLogId)
+def summaryEmailSubject(params, importLogId)
+def summaryEmailAddress(params, importLogId)
+def sendSummaryEmail(params, importLogId) // override entire summary email
+def confirmationEmailContentTemplate(params, importLogId)
+def confirmationEmailSubjectTemplate(params, importLogId)
+def confirmationEmailBindVariables(binding, params, importLogId)
+def confirmationEmailContent(params, importLogId)
+def confirmationEmailSubject(params, importLogId)
+def confirmationEmailAddress(params, importLogId)
+def sendConfirmationEmail(params, importLogId)
 ```    
 
 The logger implementation is configurable and pluggable:
@@ -429,22 +429,22 @@ def importsLogger
 
 
 ```    
-    //Logging methods
-    def createImportLog(params)
-    def incrementImportCounter(importLogId)
-    def setImportTotal(importLogId, total)
-    def setImportLogValue(importLogId, name, value)
-    def cancel(importLogId) // canceling occurs via logging
-    def isCanceled(importLogId)
-    def isImportComplete(importLogId)
-    def logMessage(importLogId, valuesMap)
-    def logSuccessRow(importLogId, row, index)
-    def logCancelRow(importLogId, row, index)
-    def logInsertRow(importLogId, row, index)
-    def logUpdateRow(importLogId, row, index)
-    def logErrorRow(importLogId, row, index, msg)
-    def getImportLog(importLogId)
-    def getImportLogErrorInfo(importLogId)
-    def findImportLogs(params)
+//Logging methods
+def createImportLog(params)
+def incrementImportCounter(importLogId)
+def setImportTotal(importLogId, total)
+def setImportLogValue(importLogId, name, value)
+def cancel(importLogId) // canceling occurs via logging
+def isCanceled(importLogId)
+def isImportComplete(importLogId)
+def logMessage(importLogId, valuesMap)
+def logSuccessRow(importLogId, row, index)
+def logCancelRow(importLogId, row, index)
+def logInsertRow(importLogId, row, index)
+def logUpdateRow(importLogId, row, index)
+def logErrorRow(importLogId, row, index, msg)
+def getImportLog(importLogId)
+def getImportLogErrorInfo(importLogId)
+def findImportLogs(params)
 ```
 
