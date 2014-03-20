@@ -25,9 +25,9 @@ Import file upload POST URL is /proconImport/process with 3 parameters: entityNa
 
 GET to same URL will return configurable "info" response.
 
-Refer to com.procon.nspire.proconimport.ProconImportService to see how things work.
+Refer to grails.plugins.imports.ImportsService to see how things work.
 
-Plugin project has sample imports in test/imports and entry point is http://localhost:8080/proconImportTest.
+Plugin project has sample imports in test/imports and entry point is http://localhost:8080/importsTest.
 
 Basic Example
 -------------
@@ -57,7 +57,7 @@ Domain class:
 Import service:
 
     class MyDomainClassImportService {
-    	static proconImport = MyDomainClass
+    	static imports = MyDomainClass
     	static transactional = false //turn off transactions for better throughput
     }
 
@@ -82,7 +82,7 @@ Domain class:
 Import service:
 
     class MyDomainClassImportService {
-        static proconImport = MyDomainClass
+        static imports = MyDomainClass
         static transactional = false //turn off transactions for better throughput
     
         def columns(params, importLogId) {
@@ -109,7 +109,7 @@ Domain class:
 Import service:
 
     class MyDomainClassImportService {
-        static proconImport = MyDomainClass
+        static imports = MyDomainClass
         static transactional = false //turn off transactions for better throughput
     	def async = true
     }
@@ -133,7 +133,7 @@ Domain class:
 Import service:
 
     class MyDomainClassImportService {
-        static proconImport = MyDomainClass
+        static imports = MyDomainClass
         static transactional = false //turn off transactions for better throughput
     	def useQueue = true
     }
@@ -150,7 +150,7 @@ Non-Domain Class Example
 Import service:
 
     class MyDomainClassImportService {
-        static proconImport = 'ArbitraryName'
+        static imports = 'ArbitraryName'
         static transactional = false //turn off transactions for better throughput
     	def processRow(row, index, columns, params, importLogId) {
     	    def success = false
@@ -187,7 +187,7 @@ Domain class:
 Import service:
 
     class MyDomainClassImportService {
-        static proconImport = MyDomainClass
+        static imports = MyDomainClass
         static transactional = false //turn off transactions for better throughput
 	    def matchProperties = ['code']
     }
@@ -220,7 +220,7 @@ class MyAssociatedDomainClass {
 Import service:
 ```
 class MyDomainClassImportService {
-    static proconImport = MyDomainClass
+    static imports = MyDomainClass
     static transactional = false //turn off transactions for better throughput
 }
 ```
@@ -246,7 +246,7 @@ class MyDomainClass {
 Import service:
 ```
 class MyDomainClassImportService {
-    static proconImport = MyDomainClass
+    static imports = MyDomainClass
     static transactional = false //turn off transactions for better throughput
 	
 	def marshall(columnName,  propertyName, value, importLogId) {
@@ -282,7 +282,7 @@ class MyDomainClass {
 Import service:
 ```
 class MyDomainClassImportService {
-    static proconImport = MyDomainClass
+    static imports = MyDomainClass
     static transactional = false //turn off transactions for better throughput
 	
   def defaultValue (columnName, propertyName, importLogId) {
