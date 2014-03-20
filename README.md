@@ -30,7 +30,7 @@ Import file upload POST URL is:
 This endpoint accepts 3 parameters: 
 
 - entityName [string]
-- import [file] (parameter)
+- import [file] (parameter can be customized
 - format of response [html | json | xml]
 
 GET to same URL will return configurable "info" response.
