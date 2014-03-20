@@ -449,6 +449,60 @@ def getImportLogErrorInfo(importLogId)
 def findImportLogs(params)
 ```
 
+Sample Log structure in JSON:
+```
+{
+   headers:[
+      "emailValue",
+      "longValue",
+      "doubleValue",
+      "stringValue",
+      "listValue",
+      "integerValueMarshalled",
+      "integerValue",
+      "friendlyName"
+   ],
+   total:2,
+   canceled:false,
+   scope:"imports",
+   accountId:null,
+   cancelCount:0,
+   insertCount:0,
+   errorCount:0,
+   errorRows:[
+
+   ],
+   messages:[
+      {
+         text:"Starting file processing",
+         ts:"2014-03-20T16:50:29Z"
+      },
+      {
+         text:"Process request complete (async processing may still be occurring)",
+         ts:"2014-03-20T16:50:30Z"
+      }
+   ],
+   entityName:"testImportItem1",
+   confirmationEmail:{
+      content:" Hi, Your recent import of testImportItem1 has been received. Filename : testImportItem1.csv Uploaded at : Thu Mar 20 09:50:29 PDT 2014 Total rows provided: 2 If you experience issues related to your import process, please contact support. Thank you very much! ",
+      subject:"Your import of testImportItem1 has been received",
+      from:"imports@myapp.com",
+      recipient:"sefiaconsulting@gmail.com"
+   },
+   processed:0,
+   importType:"csv",
+   _id:"2c00b45261134adebdf0e16859aa2bff",
+   created:"2014-03-20T16:50:29Z",
+   userId:null,
+   fileName:"testImportItem1.csv",
+   archivedFileLocator:null,
+   processing:true,
+   updateCount:0,
+   successCount:0,
+   fileSizeBytes:215
+}
+```
+
 Custom logger classes should implement the `com.grails.plugins.imports.logging.ImportLogger` interface that defines the methods above.
 
 Import actions
@@ -457,21 +511,24 @@ Import actions
 There are some default URLs that can be used to access import functionality. The views rendered are configurable.
 
 ```
-/imports/showErrorRows
-
+// view config: grails.plugins.imports.logView
 /imports/showLog
+
+// customized user instructions for a specific import
+// view config: uri configured in export service
+/imports/showInfo
 
 
 // Cancel asynchronous import process. Accepts the parameter importLogId or id
 // view config: grails.plugins.imports.cancelView
-/cancel
+/imports/cancel
 
 // Upload file to be processed. Must be a multi-part file POST. File parameter is configurable in import service and defaults to 'import'
 // view config: grails.plugins.imports.confirmationView
-/process
+/imports/process
 
 // 
 // view config: grails.plugins.imports.errorRowView
-/showErrorRows
+/imports/showErrorRows
 
 ```
