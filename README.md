@@ -332,7 +332,7 @@ Add these service properties to modify processing behavior (i.e. "def async = fa
  - doConfirmationEmail [true]
  - doSummaryEmail [true]
  - doArchiveFile [false]
- - fromEmailAddress ['imports@spireon.com']
+ - fromEmailAddress ['imports@myapp.com']
  - doIncludeErrorsInSummary [true] 
  - confirmationEmailContentTemplate [ProconImportService.DEFAULT_CONFIRMATION_EMAIL_CONTENT]
  - summaryEmailContentTemplate [ProconImportService.DEFAULT_SUMMARY_EMAIL_CONTENT] 
