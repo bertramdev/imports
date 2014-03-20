@@ -450,3 +450,28 @@ def findImportLogs(params)
 ```
 
 Custom logger classes should implement the `com.grails.plugins.imports.logging.ImportLogger` interface that defines the methods above.
+
+Import actions
+--------------------------
+
+There are some default URLs that can be used to access import functionality. The views rendered are configurable.
+
+```
+/imports/showErrorRows
+
+/imports/showLog
+
+
+// Cancel asynchronous import process. Accepts the parameter importLogId or id
+// view config: grails.plugins.imports.cancelView
+/cancel
+
+// Upload file to be processed. Must be a multi-part file POST. File parameter is configurable in import service and defaults to 'import'
+// view config: grails.plugins.imports.confirmationView
+/process
+
+// 
+// view config: grails.plugins.imports.errorRowView
+/showErrorRows
+
+```
