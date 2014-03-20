@@ -130,7 +130,7 @@ class DefaultImporter {
 			}
 			importLogger.setImportLogValue(importLogId, 'total', count)
 		} finally {
-			try {inputStream?.reset()} catch (ee) {log.error(ee)}
+			try {inputStream?.reset()} catch (ee) {delegate.log.error(ee)}
 		}
 		return !errorFound
     }
@@ -237,7 +237,7 @@ class DefaultImporter {
 
 	static processRow = {row, index, columns, params, importLogId->
 		def importLogger = getLogger()
-		delegate.incrementImportCounter(importLogId)
+		importLogger.incrementImportCounter(importLogId)
 		if (index > 0 && (index+1) % delegate.cancelCheckIncrement == 0 || delegate.canUseQueue(importLogId)) {
 			if (importLogger.isCanceled(importLogId)) {
 				importLogger.logCancelRow(importLogId, row, index)
@@ -255,7 +255,7 @@ class DefaultImporter {
 			}
 		} catch (Throwable e) {
 			delegate.log.error(e)
-			importLogger.logErrorRow(importLogId, row)
+			importLogger.logErrorRow(importLogId, row, index, e.toString())
 		}
 		if (delegate.canUseQueue(importLogId) && importLogger.isImportComplete(importLogId)) delegate.processComplete(params, importLogId)
     }

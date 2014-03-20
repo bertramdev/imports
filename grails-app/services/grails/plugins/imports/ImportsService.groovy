@@ -102,7 +102,7 @@ class ImportsService {
 				uploadedFile = request.getFile(service.parameterName)
 			} catch (e) {
 				service.log.error(e)
-				throw new ImportsException('Unable to file uploaded file parameter '+ service.parameterName+' not found for '+params.entityName, 400)			
+				throw new ImportsException('Unable to find uploaded file parameter '+ service.parameterName+' not found for '+params.entityName, 400)			
 			}
 			params.remove(service.parameterName)
 			if (service.doArchiveFile) service.archiveFile(uploadedFile, params, importLogId)

@@ -1,5 +1,6 @@
 class ImportUrlMappings {
 	static mappings = {
+		"/imports/$action?/$id?"(controller:"imports")
 		"/imports/test"(controller:"importsTest")
         "/api/import/csv/$entityName?"(controller:"imports"){
         	importType = 'csv'

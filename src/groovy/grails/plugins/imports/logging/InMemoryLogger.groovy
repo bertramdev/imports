@@ -71,7 +71,6 @@ class InMemoryLogger implements ImportLogger{
     def logErrorRow(importLogId, row, index, msg) {
         def map = getImportLogMap(importLogId)
         map.errorCount = map.errorCount ?: 0i
-        delegate.log.debug('logErrorRow')
         if (msg) row[DefaultImporter.IMPORT_ERROR] = msg
         if (index) row[DefaultImporter.IMPORT_INDEX] = index
         map.errorCount++

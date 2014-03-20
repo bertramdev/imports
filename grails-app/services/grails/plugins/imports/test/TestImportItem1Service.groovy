@@ -14,7 +14,6 @@ class TestImportItem1Service {
                   stringValue:'stringValue',listValue:'listValue',integerValueMarshalled:'integerValueMarshalled',
                   stringValueBeforeBind:'stringValueBeforeBind',stringValueAfterBind:'stringValueAfterBind',
                   integerValue:'integerValue',friendlyName:'aliasValue']
-
     	return cols
 	}
 
