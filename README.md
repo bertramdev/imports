@@ -383,7 +383,7 @@ Mail Information
 ----------------
 If the custom import service includes the properties `def doConfirmationEmail = true` and/or `def doSummaryEmail = true`, emails will be sent out. By default, the recipient,s email address will be to to the 'email' parameter submitted with the import file. You may override `def summaryEmailAddress(params, importLogId)` and/or `def confirmationEmailAddress(params, importLogId)` to lookup the recipient email using another means.
 
-***NOTE:*** You must install the mail plugin.
+***NOTE:***  To send emails you must install and configure the mail plugin into you Grails appliciiton.
 
 **Confirmation Email Template**
 
@@ -431,8 +431,9 @@ If the custom import service includes the properties `def doConfirmationEmail = 
 
 RabbitMQ Information
 --------------------
+If RabbitMQ is installed the queue used for processing imports will be called `${grailsApplication.metadata['app.name']}ImportRows` (the app name as defined in `application.properties`.
 
-
+***NOTE:*** To use queues you must have a running instance of RabbitMQ and install and configure the RabbitMQ plugin into your Grails application.
 
 Import service processing methods that can be overridden
 --------------------------
