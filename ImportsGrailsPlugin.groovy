@@ -33,7 +33,6 @@ Default support for CSV and domain classes
             importsLogger(InMemoryLogger)
         } else if (loggingProvider == 'default') {
             importsLogger(DefaultLogger)
-            service.metaClass."${k}" = DefaultLogger."${k}"
         } else {
             Class clazz = Class.forName(loggingProvider, true, Thread.currentThread().contextClassLoader)
             importsLogger(clazz)
