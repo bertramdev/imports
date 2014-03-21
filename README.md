@@ -375,10 +375,10 @@ Add these service properties to modify processing behavior (i.e. "def async = fa
  - doArchiveFile [false]
  - fromEmailAddress ['imports@myapp.com']
  - doIncludeErrorsInSummary [true] 
- - confirmationEmailContentTemplate [ProconImportService.DEFAULT_CONFIRMATION_EMAIL_CONTENT]
- - summaryEmailContentTemplate [ProconImportService.DEFAULT_SUMMARY_EMAIL_CONTENT] 
- - confirmationEmailSubjectTemplate [ProconImportService.DEFAULT_CONFIRMATION_EMAIL_SUBJECT]
- - summaryEmailSubjectTemplate [ProconImportService.DEFAULT_SUMMARY_EMAIL_SUBJECT]
+ - confirmationEmailContentTemplate [ImportsService.DEFAULT_CONFIRMATION_EMAIL_CONTENT]
+ - summaryEmailContentTemplate [ImportsService.DEFAULT_SUMMARY_EMAIL_CONTENT] 
+ - confirmationEmailSubjectTemplate [ImportsService.DEFAULT_CONFIRMATION_EMAIL_SUBJECT]
+ - summaryEmailSubjectTemplate [ImportsService.DEFAULT_SUMMARY_EMAIL_SUBJECT]
  
 Mail Information
 ----------------
