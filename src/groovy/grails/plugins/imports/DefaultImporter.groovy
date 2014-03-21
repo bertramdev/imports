@@ -297,14 +297,16 @@ class DefaultImporter {
 	static bindRow = {row, index, columns, params, importLogId->
 		delegate.beforeBindRow(row, index, columns, params, importLogId)
 		delegate.log.debug('bindRow')
-	    def bindingMap = new org.codehaus.groovy.grails.web.util.TypeConvertingMap(),
+	    def bindingMap = new org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap([:], null),
+		    domainArtefact = grails.util.Holders.grailsApplication.getArtefactByLogicalPropertyName('Domain', params.entityName),
 	        object = delegate.fetchObject(row, index, columns, params, importLogId)
 	    columns.each {k, v->
 			def property = columns[k] ?: k,
 				value = delegate.marshall(k, property, row[k], importLogId) ?: delegate.defaultValue(k, property, importLogId)
-			bindingMap[property] = value
+			bindingMap.put(property, value)
 	    }
-		DataBindingUtils.bindObjectToInstance(object, bindingMap)
+		DataBindingUtils.bindObjectToDomainInstance(domainArtefact, object, bindingMap)
+		DataBindingUtils.assignBidirectionalAssociations(object, bindingMap, domainArtefact) 
 		delegate.afterBindRow(object, row, index, columns, params, importLogId)
 		return object
     }
