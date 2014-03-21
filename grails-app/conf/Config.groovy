@@ -1,5 +1,5 @@
 // configuration for plugin testing - will not be included in the plugin zip
- grails.config.locations = [ "conf/Config.groovy"]
+grails.config.locations = [ "conf/Config.groovy"]
 
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = false
@@ -22,8 +22,8 @@ rabbitmq {
         consumers = 5
     }
     queues = {
-      exchange name: 'procon.import', type: direct, durable: true, {
-          "ImportImportRows" durable: true, binding: "${grails.util.Holders.grailsApplication.metadata['app.name']}"
+      exchange name: 'imports', type: direct, durable: true, {
+          "${grails.util.Holders.grailsApplication.metadata['app.name']}ImportRows" durable: true, binding: "${grails.util.Holders.grailsApplication.metadata['app.name']}"
       }
     }
 }
