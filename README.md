@@ -166,16 +166,17 @@ Import service:
     class MyDomainClassImportService {
         static imports = 'ArbitraryName'
         static transactional = false //turn off transactions for better throughput
+        def importsLogger
     	def processRow(row, index, columns, params, importLogId) {
     	    def success = false
     	    // do something interesting
 			if (!success) {
-				logErrorRow(importLogId, row, index, 'something bad happened')
+				importsLogger.logErrorRow(importLogId, row, index, 'something bad happened')
 			} else {
-				logSuccessRow(importLogId, row, index)
+				importsLogger.logSuccessRow(importLogId, row, index)
 			}
 		    if (isImportComplete(importLogId)) // should do this if using queue
-		        processComplete(params, importLogId)
+		        importsLogger.processComplete(params, importLogId)
     	}
     }
 
@@ -374,10 +375,10 @@ Add these service properties to modify processing behavior (i.e. "def async = fa
  - doArchiveFile [false]
  - fromEmailAddress ['imports@myapp.com']
  - doIncludeErrorsInSummary [true] 
- - confirmationEmailContentTemplate [ProconImportService.DEFAULT_CONFIRMATION_EMAIL_CONTENT]
- - summaryEmailContentTemplate [ProconImportService.DEFAULT_SUMMARY_EMAIL_CONTENT] 
- - confirmationEmailSubjectTemplate [ProconImportService.DEFAULT_CONFIRMATION_EMAIL_SUBJECT]
- - summaryEmailSubjectTemplate [ProconImportService.DEFAULT_SUMMARY_EMAIL_SUBJECT]
+ - confirmationEmailContentTemplate [ImportsService.DEFAULT_CONFIRMATION_EMAIL_CONTENT]
+ - summaryEmailContentTemplate [ImportsService.DEFAULT_SUMMARY_EMAIL_CONTENT] 
+ - confirmationEmailSubjectTemplate [ImportsService.DEFAULT_CONFIRMATION_EMAIL_SUBJECT]
+ - summaryEmailSubjectTemplate [ImportsService.DEFAULT_SUMMARY_EMAIL_SUBJECT]
  
 Mail Information
 ----------------
