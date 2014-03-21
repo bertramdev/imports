@@ -383,7 +383,7 @@ Mail Information
 ----------------
 If the custom import service includes the properties `def doConfirmationEmail = true` and/or `def doSummaryEmail = true`, emails will be sent out. By default, the recipient,s email address will be to to the 'email' parameter submitted with the import file. You may override `def summaryEmailAddress(params, importLogId)` and/or `def confirmationEmailAddress(params, importLogId)` to lookup the recipient email using another means.
 
-***NOTE:***  To send emails you must install and configure the mail plugin into you Grails appliciiton.
+***NOTE:***  To send emails you must install and configure the mail plugin into you Grails application.
 
 **Confirmation Email Template**
 
