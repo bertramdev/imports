@@ -166,16 +166,17 @@ Import service:
     class MyDomainClassImportService {
         static imports = 'ArbitraryName'
         static transactional = false //turn off transactions for better throughput
+        def importsLogger
     	def processRow(row, index, columns, params, importLogId) {
     	    def success = false
     	    // do something interesting
 			if (!success) {
-				logErrorRow(importLogId, row, index, 'something bad happened')
+				importsLogger.logErrorRow(importLogId, row, index, 'something bad happened')
 			} else {
-				logSuccessRow(importLogId, row, index)
+				importsLogger.logSuccessRow(importLogId, row, index)
 			}
 		    if (isImportComplete(importLogId)) // should do this if using queue
-		        processComplete(params, importLogId)
+		        importsLogger.processComplete(params, importLogId)
     	}
     }
 
