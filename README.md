@@ -10,9 +10,9 @@ This plugin provides support for importing bulk data, typically via CSV file upl
  - Optional pre-processing validation
  - Error row tracking
  - Built-in support for CSV processing
- - Support for asynchronous processing
- - Support for distributed processing via RabbitMQ
- - Support for confirmation and summary email notification
+ - Support for asynchronous processing (via Executor plugin)
+ - Optional support for distributed processing (via optional RabbitMQ plugin)
+ - Optional support for confirmation and summary email notification  (via optional Mail Plugin)
  - All aspects of import processing can be overridden
  - Pluggable import logging framework (includes in-memory and Mongo logging implementations)
  - Support for canceling asynchronous and queue-based import processing
@@ -245,6 +245,44 @@ value1,1
 value2,1
 value3,2
 ```    
+Custom Association Example
+----------------------
+Domain classes:
+```
+class MyDomainClass {
+    	String stringValue
+    	MyAssociatedDomainClass domainClassValue
+    	Date dateCreated
+    	Date lastUpdated
+}
+
+class MyAssociatedDomainClass {
+    	String name
+    	Date dateCreated
+    	Date lastUpdated
+}
+```
+Import service:
+```
+class MyDomainClassImportService {
+    static imports = MyDomainClass
+    static transactional = false //turn off transactions for better throughput
+    def afterBindRow(obj, row, index, columns, params, importLogId) {
+        if (row['associatedItemName']) {
+	    obj.testImportItem5= MyAssociatedDomainClass.findByName(row['associatedItemName'])
+        }
+    }
+
+}
+```
+Import CSV file:
+```
+stringValue,associatedItemName
+value1,joe
+value2,fred
+value3,carl
+```    
+
 Custom Column Marshalling Example
 ----------------------
 
@@ -281,8 +319,10 @@ value1,1
 value2,1
 value3,2
 ```
+
 Custom Column Default Example
 ----------------------
+You can assign a default value to fields (if the Domain Class does not define a default)
 
 Domain class:
 ```
@@ -329,8 +369,8 @@ Add these service properties to modify processing behavior (i.e. "def async = fa
  - maxErrors [Integer.MAX_VALUE]
  - doValidation [false]
  - cancelCheckIncrement [50]
- - doConfirmationEmail [true]
- - doSummaryEmail [true]
+ - doConfirmationEmail [false]
+ - doSummaryEmail [false]
  - doArchiveFile [false]
  - fromEmailAddress ['imports@myapp.com']
  - doIncludeErrorsInSummary [true] 
@@ -339,6 +379,12 @@ Add these service properties to modify processing behavior (i.e. "def async = fa
  - confirmationEmailSubjectTemplate [ProconImportService.DEFAULT_CONFIRMATION_EMAIL_SUBJECT]
  - summaryEmailSubjectTemplate [ProconImportService.DEFAULT_SUMMARY_EMAIL_SUBJECT]
  
+Mail Information
+----------------
+If the custom import service includes the properties `def doConfirmationEmail = true` and/or `def doSummaryEmail = true`, emails will be sent out. By default, the recipient,s email address will be to to the 'email' parameter submitted with the import file. You may override `def summaryEmailAddress(params, importLogId)` and/or `def confirmationEmailAddress(params, importLogId)` to lookup the recipient email using another means.
+
+***NOTE:***  To send emails you must install and configure the mail plugin into you Grails application.
+
 **Confirmation Email Template**
 
 > Hi,
@@ -383,6 +429,11 @@ Add these service properties to modify processing behavior (i.e. "def async = fa
 > 
 > Thank you very much!
 
+RabbitMQ Information
+--------------------
+If RabbitMQ is installed the queue used for processing imports will be called `${grailsApplication.metadata['app.name']}ImportRows` (the app name as defined in `application.properties`.
+
+***NOTE:*** To use queues you must have a running instance of RabbitMQ and install and configure the RabbitMQ plugin into your Grails application.
 
 Import service processing methods that can be overridden
 --------------------------
