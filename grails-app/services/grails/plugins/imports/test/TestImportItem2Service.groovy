@@ -7,6 +7,8 @@ class TestImportItem2Service {
 	def async = false
 	def matchProperties = ['stringValue']
 	def doValidation = true
+	def doConfirmationEmail = true 
+	def doSummaryEmail = true
 
 	def beforeBindRow(row, index,columns, params, importLogId) {
 		log.info('beforeBindRow')

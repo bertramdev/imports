@@ -22,7 +22,7 @@ class ImportsService {
 
 	def publishRow(row, index, columns, params, importLogId) {
 		def msgContent = [row:row, index:index, columns:columns, importLogId:importLogId, params:params]
-		rabbitSend "${grails.util.Holders.grailsApplication.metadata['app.name']}ImportRows", new JSON(msgContent).toString()
+		rabbitSend rabbitQueue, new JSON(msgContent).toString()
 	}
 
 	def validateEntityName(entityName) throws Exception {

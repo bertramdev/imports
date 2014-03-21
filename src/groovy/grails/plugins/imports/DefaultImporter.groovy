@@ -60,7 +60,7 @@ class DefaultImporter {
 
     static SERVICE_PROPERTIES = [getInfoUrl:null,getAsync:false,getParameterName:'import',getMatchProperties:['id'],getUseQueue:false, 
                                    getMaxErrors:Integer.MAX_VALUE, getDoValidation:false, getCancelCheckIncrement:50,
-                                   getDoConfirmationEmail:true, getDoSummaryEmail:true, getDoArchiveFile:false, getFromEmailAddress:'imports@myapp.com',
+                                   getDoConfirmationEmail:false, getDoSummaryEmail:false, getDoArchiveFile:false, getFromEmailAddress:'imports@myapp.com',
                                    getDoIncludeErrorsInSummary:true, getConfirmationEmailContentTemplate: DEFAULT_CONFIRMATION_EMAIL_CONTENT,
                                    getSummaryEmailContentTemplate:DEFAULT_SUMMARY_EMAIL_CONTENT, getConfirmationEmailSubjectTemplate:DEFAULT_CONFIRMATION_EMAIL_SUBJECT,
                                    getSummaryEmailSubjectTemplate:DEFAULT_SUMMARY_EMAIL_SUBJECT]
@@ -415,15 +415,7 @@ class DefaultImporter {
     }
 
     static summaryEmailAddress = {params, importLogId->
-		def rtn = null
-		try {
-		    def domainArtefact = grails.util.Holders.grailsApplication.getArtefactByLogicalPropertyName('Domain', 'user'),
-		        domainClassInstance = domainArtefact?.getClazz()?.newInstance(),
-		        usr = domainClassInstance?.get(new Long(params.sUserId))		    
-		    rtn = usr.email
-		} catch (e) {
-			log.error(e)
-		}
+		def rtn = params.email
 		return rtn
     }
 
@@ -504,15 +496,7 @@ class DefaultImporter {
     }
 
     static confirmationEmailAddress = {params, importLogId->
-		def rtn = null
-		try {
-		    def domainArtefact = grails.util.Holders.grailsApplication.getArtefactByLogicalPropertyName('Domain', 'user'),
-		        domainClassInstance = domainArtefact?.getClazz()?.newInstance(),
-		        usr = domainClassInstance?.get(new Long(params.sUserId))		    
-		    rtn = usr.email
-		} catch (e) {
-			log.error(e)
-		}
+		def rtn = params.email
 		return rtn
     }
 

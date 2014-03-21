@@ -32,6 +32,12 @@
 	</div>
   </div>
   <div class="form-group">
+    <label for="entityName"  class="col-sm-2 control-label">Email Address:</label>
+    <div class="col-sm-4">
+    <input class="form-control" type="email" name="email" />
+	</div>
+  </div>
+  <div class="form-group">
     <div class="col-sm-4 col-sm-offset-2">
     <input class="form-control" type="submit" class="btn btn-primary"/>
 	</div>

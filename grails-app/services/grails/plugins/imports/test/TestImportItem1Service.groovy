@@ -8,6 +8,8 @@ class TestImportItem1Service {
 	def matchProperties = ['id']
 	def doValidation = true
 	def cancelCheckIncrement = 5
+	def doConfirmationEmail = true 
+	def doSummaryEmail = true
 
     def columns(params, importLogId) {
 		def cols = [emailValue:'emailValue',longValue:'longValue',doubleValue:'doubleValue',stringValueDefault:'stringValueDefault',

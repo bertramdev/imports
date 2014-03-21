@@ -5,6 +5,8 @@ class TestImportItem4Service {
 	static transactional = false
 
 	def async = true
+	def doConfirmationEmail = true 
+	def doSummaryEmail = true
 
 	def doValidation = true
     def columns(params, importLogId) {

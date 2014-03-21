@@ -3,6 +3,8 @@ package grails.plugins.imports.test
 class TestImportItem3Service {
 	static imports = TestImportItem3
 	static transactional = false
+	def doConfirmationEmail = true 
+	def doSummaryEmail = true
 
 	def useQueue = true
 
