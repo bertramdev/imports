@@ -369,8 +369,8 @@ Add these service properties to modify processing behavior (i.e. "def async = fa
  - maxErrors [Integer.MAX_VALUE]
  - doValidation [false]
  - cancelCheckIncrement [50]
- - doConfirmationEmail [true]
- - doSummaryEmail [true]
+ - doConfirmationEmail [false]
+ - doSummaryEmail [false]
  - doArchiveFile [false]
  - fromEmailAddress ['imports@myapp.com']
  - doIncludeErrorsInSummary [true] 
@@ -379,6 +379,12 @@ Add these service properties to modify processing behavior (i.e. "def async = fa
  - confirmationEmailSubjectTemplate [ProconImportService.DEFAULT_CONFIRMATION_EMAIL_SUBJECT]
  - summaryEmailSubjectTemplate [ProconImportService.DEFAULT_SUMMARY_EMAIL_SUBJECT]
  
+Mail Information
+----------------
+If the custom import service includes the properties `def doConfirmationEmail = true` and/or `def doSummaryEmail = true`, emails will be sent out. By default, the recipient,s email address will be to to the 'email' parameter submitted with the import file. You may override `def summaryEmailAddress(params, importLogId)` and/or `def confirmationEmailAddress(params, importLogId)` to lookup the recipient email using another means.
+
+***NOTE:*** You must install the mail plugin.
+
 **Confirmation Email Template**
 
 > Hi,
@@ -422,6 +428,10 @@ Add these service properties to modify processing behavior (i.e. "def async = fa
 > contact support..
 > 
 > Thank you very much!
+
+RabbitMQ Information
+--------------------
+
 
 
 Import service processing methods that can be overridden
