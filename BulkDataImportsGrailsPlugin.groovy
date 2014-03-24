@@ -5,14 +5,14 @@ import grails.plugins.imports.logging.DefaultLogger
 import grails.plugins.imports.logging.MongoLogger
 import grails.plugins.imports.logging.InMemoryLogger
 
-class ImportsGrailsPlugin {
+class BulkDataImportsGrailsPlugin {
     def version = "0.1"
     def grailsVersion = "2.0 > *"
-    def title = "Import Plugin"
+    def title = "Bulk Data Imports Plugin"
     def author = "Jeremy Leng"
     def authorEmail = "jleng@bcap.com"
     def description = '''\
-Import plugin simplifies importing of bulk data via file uploads
+Bulk Data Imports Plugin simplifies importing of bulk data via file uploads
 Default support for CSV and domain classes
 '''
     def pluginExcludes = [
@@ -48,7 +48,7 @@ Default support for CSV and domain classes
                 if (entityName) {
                     def found = application.domainClasses?.find { NU.getPropertyName(it.name) == entityName} != null
                     if (!found  && !service.hasMetaMethod('processRow', getArgs(3)) ) {
-                        log.warn('\n    ImportsPlugin: could not configure importer '+service.shortName+'... no domain class found and missing processRow method')
+                        log.warn('\n    BulkDataImports: could not configure importer '+service.shortName+'... no domain class found and missing processRow method')
                     } else {
                         DF.SERVICE_METHODS.each {k,v-> 
                             if (!service.hasMetaMethod(k, getArgs(v))) service.metaClass."${k}" = DF."${k}"
@@ -61,11 +61,11 @@ Default support for CSV and domain classes
                         IS.IMPORT_CONFIGURATIONS[entityName] = NU.getPropertyNameRepresentation(service.shortName)
                     }
                 } else {
-                    log.warn('\n    ImportsPlugin: invalid imports configuration for '+service.shortName+' :'+imports)
+                    log.warn('\n    BulkDataImports: invalid imports configuration for '+service.shortName+' :'+imports)
                 }
             }
         }
-        IS.IMPORT_CONFIGURATIONS.each {k,v-> log.info('\n    ImportsPlugin:'+ k + ' imported by '+v) }
+        IS.IMPORT_CONFIGURATIONS.each {k,v-> log.info('\n    BulkDataImports:'+ k + ' imported by '+v) }
     }
     def onChange = { event -> if (event.source) doWithSpring() }
     private getArgs(ct) {
