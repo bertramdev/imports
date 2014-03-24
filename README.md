@@ -1,4 +1,4 @@
-**Imports Grails Plugin**
+**Bulk Data Imports Grails Plugin**
 =====================
 
 This plugin provides support for importing bulk data, typically via CSV file upload.
