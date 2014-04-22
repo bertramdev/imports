@@ -22,7 +22,7 @@ Default support for CSV and domain classes
         "grails-app/views/importsTest/index.gsp"
     ]
     def loadBefore = ['rabbitmq','rabbit-amqp']
-    def documentation = "http://grails.org/plugin/procon-import-plugin"
+    def documentation = "http://github.com/bertramdev/imports"
     def watchedResources = "file:./grails-app/services/*Service.groovy"
     def organization = [ name: "BertramLabs", url: "http://www.bertramlabs.com/" ]
     def license         = "APACHE"
