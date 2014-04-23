@@ -516,6 +516,8 @@ def getImportLogErrorInfo(importLogId)
 def findImportLogs(params)
 ```
 
+**NOTE:** The import log is used to maintain state during import processing. The "cancel import" functionality depends on the import log.
+
 Sample Log structure in JSON:
 ```
 {
