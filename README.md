@@ -27,11 +27,12 @@ Import file upload POST URL is:
 /imports/process
 ```
 
-This endpoint accepts 3 parameters: 
+This endpoint expect multi-part mime encoded and accepts 4 parameters: 
 
 - entityName [string]
-- import [file] \(parameter can be customized\)
-- format of response [html | json | xml]
+- import [file] \(parameter can be customized in config\)
+- format (of response) [html | json | xml]
+- email [string] (email address to send confirmation and summary emails [only if mail plugin is configured])
 
 GET to same URL will return configurable "info" response.
 
@@ -581,7 +582,7 @@ There are some default URLs that can be used to access import functionality. The
 /imports/showLog
 
 // customized user instructions for a specific import
-// view config: uri configured in export service
+// view config: infoUrl property in each import service
 /imports/showInfo
 
 
