@@ -6,7 +6,7 @@ class MongoLogger implements ImportLogger {
 	static getLoggingMongoDb() {
 		def mongo = grails.util.Holders.grailsApplication.mainContext.mongo,
 		    grailsApp = grails.util.Holders.grailsApplication,
-		    dbName = (grailsApp.config.grails.plugins.imports.containsKey('mongoDb') ? grailsApp.config.grails.plugins.imports.mongoDb : 'proconImports')
+		    dbName = (grailsApp.config.grails.plugins.imports.containsKey('mongoDb') ? grailsApp.config.grails.plugins.imports.mongoDb : 'importLogs')
 		return mongo.getDB(dbName)
 	}
 
