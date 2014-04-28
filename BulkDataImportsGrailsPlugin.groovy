@@ -26,7 +26,6 @@ Default support for CSV and domain classes
     def watchedResources = "file:./grails-app/services/*Service.groovy"
     def organization = [ name: "BertramLabs", url: "http://www.bertramlabs.com/" ]
     def license         = "APACHE"
-    def organization    = [ name: "Bertram Capital", url: "http://www.bertramcapital.com/" ]
     def issueManagement = [ system: "GITHUB", url: "http://github.com/bertramdev/imports/issues" ]
     def scm             = [ url: "http://github.com/bertramdev/imports" ]
     
