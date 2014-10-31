@@ -216,7 +216,7 @@ class DefaultImporter {
 		delegate.log.debug('columns__')
 	    def domainArtefact = grails.util.Holders.grailsApplication.getArtefactByLogicalPropertyName('Domain', params.entityName),
 	        columns = [:]
-		domainArtefact.properties.each{ if (!EXCLUDED.contains(it.name)) columns[it.name] = delegate.column(params, it.name, importLogId)}
+		domainArtefact?.properties.each{ if (!EXCLUDED.contains(it.name)) columns[it.name] = delegate.column(params, it.name, importLogId)}
 		return  columns
     }
 

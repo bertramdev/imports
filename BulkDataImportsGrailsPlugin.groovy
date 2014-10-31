@@ -6,7 +6,7 @@ import grails.plugins.imports.logging.MongoLogger
 import grails.plugins.imports.logging.InMemoryLogger
 
 class BulkDataImportsGrailsPlugin {
-    def version = "0.1.1"
+    def version = "0.1.2"
     def grailsVersion = "2.0 > *"
     def title = "Bulk Data Imports Plugin"
     def author = "Jeremy Leng"
@@ -51,7 +51,7 @@ Default support for CSV and domain classes
                 }
                 if (entityName) {
                     def found = application.domainClasses?.find { NU.getPropertyName(it.name) == entityName} != null
-                    if (!found  && !service.hasMetaMethod('processRow', getArgs(3)) ) {
+                    if (!found  && !service.hasMetaMethod('processRow', getArgs(5)) ) {
                         log.warn('\n    BulkDataImports: could not configure importer '+service.shortName+'... no domain class found and missing processRow method')
                     } else {
                         DF.SERVICE_METHODS.each {k,v-> 
@@ -68,6 +68,7 @@ Default support for CSV and domain classes
                     log.warn('\n    BulkDataImports: invalid imports configuration for '+service.shortName+' :'+imports)
                 }
             }
+
         }
         IS.IMPORT_CONFIGURATIONS.each {k,v-> log.info('\n    BulkDataImports:'+ k + ' imported by '+v) }
     }
