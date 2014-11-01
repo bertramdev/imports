@@ -6,7 +6,7 @@ import grails.plugins.imports.logging.MongoLogger
 import grails.plugins.imports.logging.InMemoryLogger
 
 class BulkDataImportsGrailsPlugin {
-    def version = "0.1.2"
+    def version = "0.1.3"
     def grailsVersion = "2.0 > *"
     def title = "Bulk Data Imports Plugin"
     def author = "Jeremy Leng"

@@ -6,7 +6,7 @@ import groovy.text.SimpleTemplateEngine
 import org.codehaus.groovy.grails.web.binding.DataBindingUtils
 
 class ImportsService {
-    static rabbitQueue = "${grails.util.Holders.grailsApplication.metadata['app.name']}ImportRows"
+    static rabbitQueue = "ImportRows"
 
 	def grailsApplication
 	def importsLogger
